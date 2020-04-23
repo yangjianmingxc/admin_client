@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect, Switch, Route } from 'react-router-dom'
-import storageUtils from '../../utils/storageUtils'
+import memoryUtils from '../../utils/memoryUtils'
 import LeftNav from '../../components/left-nav'
 import Header from '../../components/header'
 
@@ -19,7 +19,7 @@ const { Footer, Sider, Content } = Layout;
 
 export default class Admin extends Component {
     render() {
-        const user = storageUtils.getUser()
+        const user = memoryUtils.user
         if (!user._id) { 
             return <Redirect to="/login"></Redirect>
         }
@@ -30,7 +30,7 @@ export default class Admin extends Component {
                 </Sider>
                 <Layout> 
                     <Header />
-                    <Content style={{ backgroundColor: '#fff' }}>
+                    <Content style={{ backgroundColor: '#fff',margin:'20px' }}>
                         <Switch>
                             <Route path='/home' Component={Home} />
                             <Route path='/category' component={Category} />

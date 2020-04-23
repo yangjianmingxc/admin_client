@@ -5,6 +5,7 @@ import { Form, Icon, Input, Button, message } from 'antd';
 import { reLogin } from '../../api/index'
 import logo from '../../assets/images/logo.png'
 import storageUtils from '../../utils/storageUtils'
+import memoryUtils from '../../utils/memoryUtils'
 import './login.less'
 
 const Item = Form.Item
@@ -20,6 +21,8 @@ class Login extends Component {
                 if (res.status === 0) {
                     const user = res.data
                     storageUtils.saveUser(user)
+                    //这边需要在内存中存一份
+                    memoryUtils.user = user
                     this.props.history.replace('/')
                     message.success('登陆成功！')
                 } else {
@@ -46,7 +49,7 @@ class Login extends Component {
         }
     }
     render() {
-        const user = storageUtils.getUser()
+        const user = memoryUtils.user
         if (user._id) {
             return <Redirect to="/"></Redirect>
         }
